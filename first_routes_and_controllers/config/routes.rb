@@ -12,4 +12,13 @@ Rails.application.routes.draw do
   put '/users/:id', to: 'users#update'
   delete '/users/:id', to: 'users#destroy'
 
+  resources :user do 
+      resources :artworks, only: :index
+  end
+
+
+  resources :artworks, only: [ :create, :show, :update, :destroy ]
+
+  resources :artwork_shares, only: [:create, :destroy]
+
 end

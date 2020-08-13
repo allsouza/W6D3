@@ -17,9 +17,9 @@ class UsersController < ApplicationController
         # render json: params
         @user = User.new(user_params)
         if @user.save
-            redirect_to user_url(@user)
+            redirect_to user_url(@user) # /users/:id
         else 
-            render json: @user.errors.full_messages, status: 420
+            render json: @user.errors.full_messages, status: 422
         end
     end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         if @user.update(user_params)
             redirect_to user_url(@user)
         else   
-            render json: @user.errors.full_messages, status: 420 
+            render json: @user.errors.full_messages, status: 422 
         end
     end
 

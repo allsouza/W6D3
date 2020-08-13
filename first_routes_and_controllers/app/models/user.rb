@@ -19,7 +19,8 @@ class User < ApplicationRecord
     has_many :artwork_shares,
         primary_key: :id,
         foreign_key: :viewer_id,
-        class_name: :ArtworkShare
+        class_name: :ArtworkShare,
+        dependent: :destroy #deletes shares when user is deleted, needs to use the #destroy, #delete won't do callbacks
 
     has_many :shared_artworks,
         through: :artwork_shares,
