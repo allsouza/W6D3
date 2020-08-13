@@ -2,8 +2,21 @@
 class UsersController < ApplicationController
 
     def index
-        @users = User.all
-
+        # check if any params
+            #if there are params, then we look for username key
+                #if username key present, find_by username
+                    #if result !nil return the user
+        #return user.all
+        
+        if params.has_key?(:username)
+            @users = User.find_by(username: params[:username])
+            if @users.nil?
+                @users = User.all
+            end
+        else
+            @users = User.all
+        end
+        
         render json: @users
     end
     

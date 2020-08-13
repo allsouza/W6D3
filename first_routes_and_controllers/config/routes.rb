@@ -12,13 +12,18 @@ Rails.application.routes.draw do
   put '/users/:id', to: 'users#update'
   delete '/users/:id', to: 'users#destroy'
 
-  resources :user do 
-      resources :artworks, only: :index
+  resources :users do 
+      resources :artworks, :comments, only: :index
   end
 
-
+  resources :artworks do 
+    resources :comments, only: :index
+  end
   resources :artworks, only: [ :create, :show, :update, :destroy ]
 
   resources :artwork_shares, only: [:create, :destroy]
 
+  resources :comments, only: [:destroy]
+
+  post '/artworks/:id', to: 'comments#create' 
 end

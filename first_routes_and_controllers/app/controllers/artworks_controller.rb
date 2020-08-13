@@ -7,6 +7,10 @@ class ArtworksController < ApplicationController
         @rtworks += Artwork.joins(:shares)
                             .where(artwork_shares: {viewer_id: params[:user_id]})
                             .where.not(artist_id: params[:user_id])
+        
+        # Alternative:
+        # @user = User.find(params[:user_id])
+        # result = @user.artworks + @user.shared_artworks.where.not(ids different)
 
         render json: @rtworks
     end
