@@ -28,10 +28,22 @@ class User < ApplicationRecord
         class_name: :Comment,
         dependent: :destroy
 
+    has_many :likes,
+        primary_key: :id,
+        foreign_key: :liker_id,
+        class_name: :Like,
+        dependent: :destroy
+
     has_many :shared_artworks,
         through: :artwork_shares,
         source: :artwork
 
+    has_many :liked_artworks,
+        through: :likes,
+        source: :artwork
 
+    has_many :liked_comments,
+        through: :likes,
+        source: :comment
 
 end

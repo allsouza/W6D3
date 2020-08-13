@@ -11,10 +11,10 @@ class CommentsController < ApplicationController
 
     def create
         @comment = Comment.new(comment_params)
-        @comment.artwork_id = params[:id]
+        @comment.artwork_id = params[:artwork_id]
         # debugger
         if @comment.save
-            redirect_to "/artworks/#{params[:id]}/comments"
+            redirect_to artwork_comments_url(@comment)
         else
             render json: @comment.errors.full_messages, status: 422
         end
@@ -22,9 +22,8 @@ class CommentsController < ApplicationController
 
     def destroy
         @comment = Comment.find(params[:id])
-        art_id = @comment.artwork_id
         @comment.destroy
-        redirect_to "/artworks/#{art_id}/comments"
+        redirect_to artwork_comments_url(@comment)
     end
 
     private

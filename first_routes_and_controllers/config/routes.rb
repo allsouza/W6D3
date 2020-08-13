@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   delete '/users/:id', to: 'users#destroy'
 
   resources :users do 
-      resources :artworks, :comments, only: :index
+      resources :artworks, :comments, :likes, only: :index
   end
 
   resources :artworks do 
-    resources :comments, only: :index
+    resources :comments, :likes, only: [:index, :create]
   end
   resources :artworks, only: [ :create, :show, :update, :destroy ]
 
@@ -25,5 +25,9 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:destroy]
 
-  post '/artworks/:id', to: 'comments#create' 
+  resources :comments do
+      resources :likes, only: :create
+  end
+
+  resources :likes, only: :destroy
 end

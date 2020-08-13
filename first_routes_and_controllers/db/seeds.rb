@@ -6,6 +6,7 @@ User.destroy_all
 Artwork.destroy_all
 ArtworkShare.destroy_all
 Comment.destroy_all
+Like.destroy_all
 
 users = User.create!([
     {username: 'Andre'}, 
@@ -39,6 +40,18 @@ comments = Comment.create!([
     {body:"Why so serious?", artwork_id: artworks[2].id, user_id: users[0].id},
     {body:"Help!?", artwork_id: artworks[2].id, user_id: users[1].id},
     {body:"Go back to instagram!", artwork_id: artworks[3].id, user_id: users[3].id}
+])
+#format = liker_id + (artwork_id^comment_id)
+likes = Like.create!([
+    {liker_id: users[1].id, comment_id: comments[0].id},
+    {liker_id: users[2].id, comment_id: comments[1].id},
+    {liker_id: users[3].id, comment_id: comments[2].id},
+    {liker_id: users[4].id, comment_id: comments[3].id},
+    {liker_id: users[1].id, comment_id: comments[4].id},
+    {liker_id: users[0].id, artwork_id: artworks[3].id},
+    {liker_id: users[1].id, artwork_id: artworks[2].id},
+    {liker_id: users[2].id, artwork_id: artworks[1].id},
+    {liker_id: users[3].id, artwork_id: artworks[0].id}
 ])
 
 puts "Seed successful!"

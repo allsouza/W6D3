@@ -9,14 +9,14 @@ class UsersController < ApplicationController
         #return user.all
         
         if params.has_key?(:username)
-            @users = User.find_by(username: params[:username])
+            @users = User.where("users.username iLIKE ?", "%#{params[:username]}%")
             if @users.nil?
                 @users = User.all
             end
         else
             @users = User.all
         end
-        
+
         render json: @users
     end
     
